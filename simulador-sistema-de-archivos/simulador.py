@@ -1,15 +1,30 @@
 #funcion mkdir
 def mkdir(commandList,cwd):
     auxDirectory = cwd[-1]
-    auxDirectory["content"][commandList[1]]={"type":"folder", "content":{}}
+    for nombre in commandList[1:]:
+        auxDirectory["content"][nombre]={"type":"folder", "content":{}}
 
 
 #funcion ls
 def ls(cwd):
-    print('cantidad de elementos:',len(cwd[-1]["content"]))
-    for clave in cwd[-1]["content"]:
-        print(clave)
-    #print(cwd[-1])
+    current=cwd[-1]["content"]
+    print('cantidad de elementos:',len(current))
+    columnas=0
+
+    for nombre in current:
+        if columnas == 5:
+            print("\n")
+            columna=0
+        
+        if current[nombre]["type"]=="folder":
+            print("f:",nombre,end="")
+            print("     ",end="")
+            columnas=columnas+1
+        else:
+            print(nombre,sep='                 ')
+            columnas=columnas+1
+
+
 
 #validador y direccionador de comandos
 def command_validator(commandList):
